@@ -1,0 +1,100 @@
+\documentclass[
+  a4paper,
+  11pt,
+]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage[cm, headings]{fullpage}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+% Für die Klammern der Interpretations-abbildung
+\usepackage{stmaryrd}
+
+\usepackage{color}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+% Für Zeilenumbrüche ohne Indentations
+\setlength{\parindent}{0pt}
+
+\usepackage{listings}
+\lstset{%
+  basicstyle=\ttfamily,
+  keywordstyle=\color{blue},
+  commentstyle=\color{mygray},
+  language=C,
+  showstringspaces=false,
+}
+
+\usepackage{enumerate}
+
+% coole Kopf- und Fußzeilen:
+\usepackage{fancyhdr}
+% Seitenstil ist natürlich fancy:
+\pagestyle{fancy}
+% alle Felder löschen:
+\fancyhf{}
+
+%\fancyhead[L]{
+%}
+%\fancyhead[R]{%
+%}
+%\fancyfoot[L]{}
+
+\fancyfoot[C]{\thepage}
+
+\title{Klausurvorbereitung: Theoretische Informatik}
+
+\subtitle{Universität Rostock}
+
+%\author{%
+%}
+
+\date{}
+
+\newcommand{\p}{\leq_{\textsf{p}}}
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\O}{\mathcal{O}}
+
+\newcommand{\COLOR}{\textsf{COLOR}}
+\newcommand{\COLORDrei}{\textsf{COLOR-3}}
+\newcommand{\DreiSAT}{\textsf{3SAT}}
+\newcommand{\bin}{\text{bin}}
+\newcommand{\TSP}{\textsf{TSP}}
+\newcommand{\HC}{\textsf{HAMILTONIAN CIRCUIT}}
+\newcommand{\TSPOPTI}{\textsf{TSP\_OPT\_1}}
+\newcommand{\NELP}{\textsf{0--1 LINEAR PROGRAMMING}}
+\newcommand{\CLIQUE}{\textsf{CLIQUE}}
+\newcommand{\NP}{\textsf{NP}}
+\newcommand{\id}{\text{id}}
+\newcommand{\IS}{\textsf{INDEPENDENT SET}}
+\newcommand{\VC}{\textsf{VERTEX COVER}}
+\newcommand{\IV}{\textsf{INTERESSENVERTRETER}}
+
+\begin{document}
+
+\maketitle
+
+\section*{Themen \& Inhalte}
+\label{sec:themen}
+
+\begin{itemize}
+  \item \NP-Vollständigkeit durch Polynomialreduktion zeigen
+    \begin{itemize}
+      \item Bsp: $\DreiSAT \p \IS$
+    \end{itemize}
+  \item Zeigen, dass eine Sprache nicht regulär ist (Pumping-Lemma für reguläre
+    Sprachen)
+    \begin{itemize}
+      \item Bsp: $L = \{ 0^n 1^n \mid n \in \N \}$ ist nicht regulär
+    \end{itemize}
+  \item Turing-Maschine bauen (deterministisch und nichtdeterministisch)
+    \begin{itemize}
+      \item Bsp: eine NTM mit $\Sigma = \{\Box, 0, 1\}$, die zwei Einsen auf dem
+        Band erkennt (Startposition ist beliebig)
+    \end{itemize}
+\end{itemize}
+
+\end{document}
