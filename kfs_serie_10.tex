@@ -4,13 +4,13 @@
       \item A1:
         \begin{align*}
           \begin{matrix}
-            & a & b & c & d & e & f\\
-            a & \times & & \times & \times & \times & \times\\
-            b & & \times & \times & \times & \times & \times\\
-            c & \times & \times & \times & & \times & \times\\
-            d & \times & \times & & \times & \times & \times\\
+              & a      & b      & c      & d      & e      & f\\
+            a & \times &        & \times & \times & \times & \times\\
+            b &        & \times & \times & \times & \times & \times\\
+            c & \times & \times & \times &        & \times & \times\\
+            d & \times & \times &        & \times & \times & \times\\
             e & \times & \times & \times & \times & \times & \\
-            f & \times & \times & \times & \times & & \times
+            f & \times & \times & \times & \times &        & \times
           \end{matrix}
         \end{align*}
         \begin{align*}
@@ -121,7 +121,12 @@
                     (q_2) edge [loop below] node {$a,b$} ();
         \end{tikzpicture}
         \end{center}
-      \item $L(A) = ab {\{a,b\}}^*$
+      \item $L(A) = \{abw \mid w \in \{a, b\}^*\}$
+
+      \item Da sich der Automat nicht weiter minimieren lässt, ist die minimale
+        Pumpingzahl der Sprache gleich der Anzahl der Zustände des Automats und
+        damit $4$.
+      
     \end{enumerate}
 
 \end{enumerate}
