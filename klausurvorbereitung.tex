@@ -4,7 +4,10 @@
 ]{scrartcl}
 
 \usepackage[utf8]{inputenc}
-\usepackage[cm, headings]{fullpage}
+\usepackage[
+  cm,
+  headings
+]{fullpage}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -13,7 +16,27 @@
 
 \usepackage{color}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
+
+% Coole Zeichnungen:
 \usepackage{tikz}
+\tikzstyle{vertex}=[draw, circle, minimum size=20pt]
+\tikzstyle{edge}=[draw, -]
+\usetikzlibrary{%
+  %backgrounds,
+  %mindmap,
+  %shapes.geometric,
+  %shapes.symbols,
+  %shapes.misc,
+  %shapes.multipart,
+  positioning,
+  %fit,
+  %calc,
+  %arrows,
+  automata,
+  %trees,
+  %decorations.pathreplacing,
+}
+
 \usepackage{pgfplots}
 
 % Für Zeilenumbrüche ohne Indentations
@@ -29,6 +52,16 @@
 }
 
 \usepackage{enumerate}
+% Schönere Tabellen
+% dazu gibt's neue Kommandos:
+% - \toprule[(Dicke)], \midrule[(Dicke)], \bottomrule[(Dicke)]
+% - \addlinespace: Extrahöhe zwischen Zeilen
+\usepackage{booktabs}
+% um in Tabellen eine Zelle über mehrere Zeilen laufen zu lassen:
+\usepackage{multirow}
+
+\usepackage{algorithmic}
+\renewcommand{\algorithmicrequire}{\textbf{Eingabe:}}
 
 % coole Kopf- und Fußzeilen:
 \usepackage{fancyhdr}
@@ -57,6 +90,7 @@
 \newcommand{\p}{\leq_{\textsf{p}}}
 \newcommand{\N}{\mathbb{N}}
 \renewcommand{\O}{\mathcal{O}}
+\renewcommand{\ae}{\leq_{\textsf{ae}}}
 
 \newcommand{\COLOR}{\textsf{COLOR}}
 \newcommand{\COLORDrei}{\textsf{COLOR-3}}
@@ -77,7 +111,7 @@
 
 \maketitle
 
-\section*{Themen \& Inhalte}
+\section{Themen \& Inhalte}
 \label{sec:themen}
 
 \begin{itemize}
@@ -96,5 +130,54 @@
         Band erkennt (Startposition ist beliebig)
     \end{itemize}
 \end{itemize}
+
+\section{Übungsserien}
+
+
+\subsection{Serie 1}
+\label{sub:serie_1}
+
+\input{kfs_serie_01}
+
+
+\subsection{Serie 2}
+\label{sub:serie_2}
+
+\input{kfs_serie_02}
+
+
+\subsection{Serie 3}
+\label{sub:serie_3}
+
+\input{kfs_serie_03}
+
+
+\subsection{Serie 4}
+\label{sub:serie_4}
+
+\input{kfs_serie_04}
+
+
+\subsection{Serie 5}
+\label{sub:serie_5}
+
+\input{kfs_serie_05}
+
+
+\subsection{Serie 6}
+\label{sub:serie_6}
+
+\input{kfs_serie_06}
+
+
+\subsection{Serie 7}
+\label{sub:serie_7}
+
+\input{kfs_serie_07}
+
+\subsection{Serie 10}
+\label{sub:serie_10}
+
+\input{kfs_serie_10}
 
 \end{document}

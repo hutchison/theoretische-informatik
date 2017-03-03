@@ -1,0 +1,127 @@
+\begin{enumerate}[1.]
+  \item
+    \begin{enumerate}
+      \item A1:
+        \begin{align*}
+          \begin{matrix}
+            & a & b & c & d & e & f\\
+            a & \times & & \times & \times & \times & \times\\
+            b & & \times & \times & \times & \times & \times\\
+            c & \times & \times & \times & & \times & \times\\
+            d & \times & \times & & \times & \times & \times\\
+            e & \times & \times & \times & \times & \times & \\
+            f & \times & \times & \times & \times & & \times
+          \end{matrix}
+        \end{align*}
+        \begin{align*}
+          [a] & = \{ a, b \}\\
+          [b] & = \{ a, b \}\\
+          [c] & = \{ c, d \}\\
+          [d] & = \{ c, d \}\\
+          [e] & = \{ e, f \}\\
+          [f] & = \{ e, f \}
+        \end{align*}
+
+      \item Der Myhill-Nerode-Index beträgt $3$, da A1 genau $3$
+        Äquivalenzklassen besitzt ($\{a,b\}, \{c,d\}, \{e,f\}$).
+
+      \item \
+        \begin{center}
+          \begin{tikzpicture}[scale=1,node distance=0.8cm,auto]
+            \node [state, initial] (ab) {$a,b$};
+            \node [state, accepting] (cd) [below=of ab] {$c,d$};
+            \node [state] (ef) [below=of cd] {$e,f$};
+
+            \path[->] (ab)  edge [loop right] node {$0$}    ();
+            \path[->] (ab)  edge              node {$1$}    (cd)
+                      (cd)  edge              node {$0,1$}  (ef);
+            \path[->] (ef)  edge [loop right] node {$0,1$}  ();
+          \end{tikzpicture}
+        \end{center}
+
+      \item A2:
+        \begin{align*}
+          \begin{matrix}
+                 & z_0    & z_1    & z_2    & z_3    & z_4    & z_5    & z_6    & z_7\\
+            z_0  & \times & \times & \times & \times &        &        & \times & \times\\
+            z_1  & \times & \times & \times & \times & \times & \times & \times & \times\\
+            z_2  & \times & \times & \times & \times & \times & \times & \times & \\
+            z_3  & \times & \times & \times & \times & \times & \times & \times & \times\\
+            z_4  &        & \times & \times & \times & \times &        & \times & \times\\
+            z_5  &        & \times & \times & \times &        & \times & \times & \times\\
+            z_6  & \times & \times & \times & \times & \times & \times & \times & \times\\
+            z_7  & \times & \times &        & \times & \times & \times & \times & \times\\
+          \end{matrix}
+        \end{align*}
+        \begin{align*}
+          [z_0] & = \{z_0, z_4, z_5\}\\
+          [z_1] & = \{z_1\}\\
+          [z_2] & = \{z_2, z_7\}\\
+          [z_3] & = \{z_3\}\\
+          [z_4] & = \{z_0, z_4, z_5\}\\
+          [z_5] & = \{z_0, z_4, z_5\}\\
+          [z_6] & = \{z_6\}\\
+          [z_7] & = \{z_2, z_7\}
+        \end{align*}
+
+      \item A2 hat den Myhill-Nerode-Index $5$, weil es genau $5$
+        Äquivalenzklassen gibt:
+        \begin{align*}
+          \{z_0, z_4, z_5\}, \{z_1\}, \{z_2, z_7\}, \{z_3\}, \{z_6\}
+        \end{align*}
+
+      \item \
+        \begin{center}
+        \begin{tikzpicture}[scale=1,node distance=0.8cm,auto]
+          \node [state, initial] (045) {$z_0, z_4, z_5$};
+          \node [state] (1) [below=of 045] {$z_1$};
+          \node [state, accepting] (27) [below=of 1] {$z_2, z_7$};
+          \node [state] (3) [below right=of 27] {$z_3$};
+          \node [state] (6) [below left=of 27] {$z_6$};
+
+          \path[->] (045) edge [loop right] node        {$1$}   ();
+          \path[->] (045) edge [bend left]  node        {$0$}   (1);
+          \path[->] (1)   edge [bend left]  node        {$0$}   (045)
+                          edge              node        {$1$}   (27);
+          \path[->] (27)  edge              node        {$0$}   (3)
+                          edge [bend left]  node        {$1$}   (6);
+          \path[->] (6)   edge [bend left]  node        {$1$}   (27)
+                          edge [bend right] node [swap] {$0$}   (3);
+          \path[->] (3)   edge [loop right] node        {$0,1$} ();
+        \end{tikzpicture}
+        \end{center}
+
+      \item Ein DEA ohne totale Zustandsübergangsfunktion hat Zustände, für die
+        der Übergang bei bestimmten Zeichen nicht definiert ist. Das bedeutet,
+        dass keine Zustandsänderung stattfindet und der DEA in diesem Zustand
+        bleibt.
+
+        Das heißt, dass man einen DEA ohne totale Zustandsübergangsfunktion zu
+        einen mit totaler Zustandsübergangsfunktion erweitern kann, indem man
+        zusätzliche Schleifen hinzufügt.
+
+        Diesen DEA kann man dann ganz normal minimieren.
+    \end{enumerate}
+
+  \item
+    \begin{enumerate}
+      \item \
+        \begin{center}
+        \begin{tikzpicture}[scale=1, node distance=1cm, auto]
+          \node [state, initial] (q_0) {$q_0$};
+          \node [state] (q_1) [below right=of q_0] {$q_1$};
+          \node [state] (q_3) [below left=of q_0] {$q_3$};
+          \node [state, accepting] (q_2) [below left=of q_1] {$q_2$};
+
+          \path[->] (q_0) edge node {$a$} (q_1)
+                          edge node [swap] {$b$} (q_3)
+                    (q_1) edge node {$a$} (q_3)
+                          edge node {$b$} (q_2)
+                    (q_3) edge [loop left] node {$a,b$} ()
+                    (q_2) edge [loop below] node {$a,b$} ();
+        \end{tikzpicture}
+        \end{center}
+      \item $L(A) = ab {\{a,b\}}^*$
+    \end{enumerate}
+
+\end{enumerate}
