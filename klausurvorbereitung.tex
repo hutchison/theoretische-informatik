@@ -122,6 +122,9 @@
 \section{Themen \& Inhalte}
 \label{sec:themen}
 
+\subsection{Komplexität und formale Sprachen}
+\label{sub:themen_inhalte_komplexitat_und_formale_sprachen}
+
 \begin{itemize}
   \item \NP-Vollständigkeit durch Polynomialreduktion zeigen
     \begin{itemize}
@@ -165,6 +168,236 @@
 
         \includegraphics[width=0.9\textwidth]{bilder/ndea_zu_dea_bsp_aus_hopcroft.jpg}
     \end{itemize}
+\end{itemize}
+
+\subsection{Semantik}
+\label{sub:themen_inhalte_semantik}
+
+\subsubsection{Ersetzungs-Systeme}
+\label{ssub:Ersetzungs-Systeme}
+
+\paragraph{Allgemeine Ersetzungs-Systeme}
+\label{par:allgemeine_ersetzungs_systeme}
+
+\begin{itemize}
+  \item Ein Ersetzungs-System (rewriting system) ist ein Paar $(M, \rightarrow)$
+    bestehend aus
+    \begin{enumerate}
+      \item einer Menge $M$, der sogenannten Basismenge, und
+      \item einer binären Relation $\rightarrow \ \subseteq M \times M$ auf $M$,
+        die Reduktions-Relation genannt wird.
+    \end{enumerate}
+    Gilt $(a, b) \in \ \rightarrow$ so schreibt man auch $a \rightarrow b$ und
+    sagt, dass $a$ zu $b$ (unmittelbar) reduziert.
+
+  \item abgeleitete Relationen:
+    \begin{itemize}
+      \item transitive Reduktions-Relation
+      \item reflexiv-transitive Reduktions-Relation
+      \item symmetrische Reduktions-Relation
+      \item symmetrisch-transitive Reduktions-Relation
+      \item reflexiv-symmetrisch-transitive Reduktions-Relation
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Verzweigung}
+\label{par:verzweigung}
+
+\begin{itemize}
+  \item endliche Verzweigung: ein Ersetzungs-System $(M, \rightarrow)$ heißt
+    \begin{description}
+      \item[deterministisch,] wenn es zu jedem Element höchstens einen
+        unmittelbaren Nachfolger gibt. Das ist äquivalent mit der
+        Rechtseindeutigkeit der Relation.
+      \item[endlich verzweigt,] wenn jedes Element $a \in M$ höchstens endlich
+        viele unmittelbare Nachfolger hat, d.\,h. die Menge $\{b \mid a
+        \rightarrow b\}$ ist endlich.
+    \end{description}
+
+  \item Lemma von \textsc{König}: sei $G$ ein zusammenhängender Graph mit
+    unendlich vielen Knoten. Jeder Knoten habe nur endlich viele Kanten. Dann
+    ist jeder Knoten Teil eines unendlich langen, einfachen Pfads im Graph.
+\end{itemize}
+
+\paragraph{Termination}
+\label{par:termination}
+
+\begin{itemize}
+  \item Terminations-Eigenschaften: sei $(M, \rightarrow)$ ein
+    Ersetzungs-System. Das Element $a \in M$ heißt
+    \begin{description}
+      \item[irreduzibel,]  wenn es kein $b \in M$ gibt, für das $a \rightarrow
+        b$ gilt.
+      \item[terminierend] oder \textsc{Noether}sch, wenn es zu $a$ keine
+        unendliche Kette von Reduktionen gibt, wenn es also keine $m_1, m_2,
+        \dots \in M$ gibt, mit $a \rightarrow m_1 \rightarrow m_2 \rightarrow
+        \dots$.
+      \item[beschränkt,] wenn es eine natürliche Zahl $L$ gibt, dass jede
+        Reduktionskette von $a$ eine Länge kleiner als $L$ hat.
+    \end{description}
+
+    Das Ersetzungs-System selber heißt
+    \begin{description}
+      \item[terminierend] oder \textsc{Noether}sch, wenn es keine unendliche
+        Kette von Reduktionen gibt.
+      \item[lokal beschränkt] oder in jedem Element beschränkt, wenn jedes
+        Element $a \in M$ beschränkt ist.
+      \item[beschränkt] oder global beschränkt, wenn es eine natürliche Zahl $L$
+        gibt, sodass für jedes Element $a \in M$ jede Reduktionskette von $a$
+        eine Länge kleiner als $L$ hat.
+    \end{description}
+
+  \item Terminations-Eigenschaften: für ein einzelnes Element gelten folgende
+    Zusammenhänge:
+    \begin{enumerate}
+      \item Ist ein Element beschränkt, dann ist es auch \textsc{Noether}sch.
+      \item Ist ein Element \textsc{Noether}sch, dann muss es deshalb nicht
+        beschränkt sein.
+    \end{enumerate}
+
+  \item Für ein Ersetzungs-System gilt:
+    \begin{align*}
+      \text{Global beschränkt} \Rightarrow \text{Lokal beschränkt} \Rightarrow
+      \textsc{Noether}\text{sch}
+    \end{align*}
+
+  \item Variante und Invariante: sei $(M, \rightarrow)$ ein Ersetzungs-System.
+    Eine Funktion $f : M \rightarrow W$ in eine beliebige Menge $W$ heißt eine
+    Invariante des Ersetzungs-Systems, wenn ihre Funktionswerte längs der
+    Reduktionen invariant (= unverändert) bleibt, d.\,h. wenn gilt:
+    \begin{align*}
+      \forall x, y \in M: x \rightarrow y \Rightarrow f(x) = f(y)
+    \end{align*}
+    Eine Funktion $f : M \rightarrow \N$ heißt eine (abnehmende) Variante des
+    Ersetzungs-Systems, wenn ihre Funktionswerte längs der Reduktionen abnehmen,
+    d.\,h. wenn gilt:
+    \begin{align*}
+      \forall x, y \in M: x \rightarrow y \Rightarrow f(x) > f(y)
+    \end{align*}
+
+  \item Terminationsbeweis durch Varianten-Funktion: gibt es zu einem
+    Ersetzungs-System $(S, \rightarrow)$ eine abnehmende Variante $f : S
+    \rightarrow \N$, dann ist das Ersetzungs-System terminierend. Ist diese
+    Variante zusätzlich als Funktion auf $S$ nach oben beschränkt, dann ist das
+    Ersetzungs-System sogar (global) beschränkt.
+
+  \item Termination endlich verzweigter Systeme: ein endlich verzweigtes
+    Ersetzungs-System terminiert genau dann, wenn es lokal (also in jedem
+    Element) beschränkt ist.
+
+  \item Terminations-Hierarchie: im allgemeinen Fall sieht die Hierarchie der
+    Terminations-Begriffe so aus:
+    \begin{align*}
+      \text{Global beschränkt} \Rightarrow \text{lokal beschränkt} \Rightarrow
+      \text{terminierend}
+    \end{align*}
+    Für endlich verzweigte Systeme kollabiert die Hierarchie und ergibt
+    \begin{align*}
+      \text{Global beschränkt} \Rightarrow \text{lokal beschränkt/terminierend}
+    \end{align*}
+\end{itemize}
+
+\paragraph{Konfluenz}
+\label{par:konfluenz}
+
+\begin{itemize}
+  \item Konfluenz: sei $(M, \rightarrow)$ ein Ersetzungs-System. Ein Element $a
+    \in M$ heißt
+    \begin{description}
+      \item[konfluent,] wenn für alle $b, c \in M$ mit $a \rightarrow^* b$ und
+        $a \rightarrow^* c$ ein $d \in M$ existiert, für das $b \rightarrow^* d$
+        und $c \rightarrow^* d$.
+      \item[semi-konfluent,] wenn für alle $b, c \in M$ mit $a \rightarrow b$
+        und $a \rightarrow^* c$ ein $d \in M$ existiert, für das $b
+        \rightarrow^* d$ und $c \rightarrow^* d$.
+      \item[lokal konfluent,] wenn für alle $b, c \in M$ mit $a \rightarrow b$
+        und $a \rightarrow c$ ein $d \in M$ existiert, für das $b \rightarrow^*
+        d$ und $c \rightarrow^* d$.
+    \end{description}
+    In allen diesen Fällen heißt $d$ ein gemeinsames Redukt von $b$ und $c$ und
+    $(b,c)$ heißt ein kritisches Paar zu $a$.
+
+    Das Ersetzungs-System $(M, \rightarrow)$ selber heißt
+    \begin{description}
+      \item[konfluent,] wenn jedes Element $m \in M$ konfluent ist.
+      \item[semi-konfluent,] wenn jedes Element $m \in M$ semi-konfluent ist.
+      \item[lokal konfluent,] wenn jedes Element $m \in M$ lokal konfluent ist.
+    \end{description}
+
+  \item Konfluenz-Eigenschaften: für jedes Ersetzungs-System $\mathcal{R} = (M,
+    \rightarrow)$ gilt:
+    \begin{enumerate}
+      \item $\mathcal{R}$ konfluent $\Rightarrow \mathcal{R}$ semi-konfluent
+        $\Rightarrow \mathcal{R}$ lokal konfluent.
+      \item $\mathcal{R}$ semi-konfluent $\Rightarrow \mathcal{R}$
+        konfluent.
+      \item $\mathcal{R}$ lokal konfluent und terminierend $\Rightarrow
+        \mathcal{R}$ semi-konfluent.
+    \end{enumerate}
+
+  \item \textsc{Church-Rosser} Eigenschaft: ein Ersetzungs-System $(M,
+    \rightarrow)$ erfüllt die \textsc{Church-Rosser} Eigenschaft, wenn gilt:
+    \begin{align*}
+      \forall x, y \in M:
+      x \leftrightarrow^* y \Rightarrow
+      \exists z \in M:
+      x \rightarrow^* z \wedge y \rightarrow^* z
+    \end{align*}
+
+  \item Ein Ersetzungs-System ist genau dann \textsc{Church-Rosser}, wenn es
+    konfluent ist.
+
+  \item Überblick über die Eigenschaften von Ersetzungs-Systemen:
+    \begin{center}
+      \begin{tabular}{c|c|c}
+        Konfluenz & $\Rightarrow$ & \\
+        $\Leftrightarrow$ & (immer) & \\
+        Semi-Konfluenz & & Lokale Konfluenz\\
+        $\Leftrightarrow$ & $\Leftarrow$ & \\
+        \textsc{Church-Rosser} & (falls terminierend) &
+      \end{tabular}
+    \end{center}
+\end{itemize}
+
+\paragraph{Normalformen}
+\label{par:normalformen}
+
+\begin{itemize}
+  \item Normalform: sei $(S, \rightarrow)$ ein Ersetzungs-System.
+    \begin{itemize}
+      \item Ein Element $n \in S$ heißt eine Normalform, genau dann wenn es
+        irreduzibel ist.
+      \item Ein Element $n \in S$ heißt eine Normalform des Elements $a \in S$,
+        wenn $n$ eine Normalform ist und $a$ auf $n$ reduziert, d.\,h. $a
+        \rightarrow^* n$.
+      \item Das Ersetzungs-System selber heißt normalisierend, wenn es zu jedem
+        Element $a \in S$ mindestens eine Normalform gibt.
+      \item Ein Ersetzungs-System heißt konvergent, wenn es konfluent und
+        terminierend ist.
+    \end{itemize}
+
+  \item Normalformen-Theorem:
+    \begin{enumerate}
+      \item \textbf{Existenz:} in einem terminierenden Ersetzungs-System $(S,
+        \rightarrow)$ gibt es zu jedem Element mindestens eine Normalform.
+        Anders gesagt: ein terminierendes Ersetzungs-System ist auch
+        normalisierend.
+      \item \textbf{Eindeutigkeit:} in einem konfluenten Ersetzungs-System $(S,
+        \rightarrow)$ gibt es zu jedem Element höchstens eine Normalform. Das
+        bedeutet: Normalformen sind, falls sie überhaupt existieren, eindeutig.
+      \item \textbf{Existenz und Eindeutigkeit:} in einem konfluenten,
+        terminierenden Ersetzungs-System gibt es zu jedem Element $s \in S$
+        genau eine Normalform.
+    \end{enumerate}
+
+  \item Äquivalenz: sei $(S, \rightarrow)$ ein konvergentes Ersetzungs-System.
+    Zwei Elemente $x, y \in S$ heißen äquivalent unter dem betrachteten
+    Ersetzungs-System, $x \sim_{(S, \rightarrow)} y$, wenn eine der beiden
+    äquivalenten Bedingungen erfüllt ist:
+    \begin{enumerate}
+      \item $x \leftrightarrow^* y$
+      \item Die Normalform von $x$ ist gleich der Normalform von $y$.
+    \end{enumerate}
 \end{itemize}
 
 \section{Übungsserien}
@@ -237,7 +470,7 @@
 \subsubsection{Übung 243}
 \label{ssub:Uebung 243}
 
-Das Ersetzungssystem ist
+Das Ersetzungs-System ist
 \begin{itemize}
   \item nicht terminierend
   \item nicht beschränkt
