@@ -113,6 +113,8 @@
 \newcommand{\VC}{\textsf{VERTEX COVER}}
 \newcommand{\IV}{\textsf{INTERESSENVERTRETER}}
 
+\newcommand{\prightarrow}{\ {}_p\!\!\rightarrow}
+
 \begin{document}
 
 \maketitle
@@ -398,6 +400,264 @@
       \item $x \leftrightarrow^* y$
       \item Die Normalform von $x$ ist gleich der Normalform von $y$.
     \end{enumerate}
+\end{itemize}
+
+\paragraph{Wort-Ersetzungs-Systeme}
+\label{par:wort_ersetzungs_systeme}
+
+\begin{itemize}
+  \item Semi-\textsc{Thue} und \textsc{Thue} Systeme: ein Semi-\textsc{Thue}
+    System ist ein Paar $(\Sigma, \mapsto)$ bestehend aus
+    \begin{enumerate}
+      \item einer endlichen Menge $\Sigma$, dem sogenannten Alphabet, und
+      \item einer endlichen binären Relation $\mapsto \ \subseteq \Sigma^*
+        \times \Sigma^*$ auf dem Wortmonoid von $\Sigma^*$.
+    \end{enumerate}
+
+    Ein Paar $(u, v) \in \ \mapsto$, das in Relation steht, wird auch $u \mapsto
+    v$ geschrieben und heißt eine Regel des Semi-\textsc{Thue} Systems.
+
+    Ein \textsc{Thue} System ist ein Semi-\textsc{Thue} System, dessen Relation
+    symmetrisch ist.
+
+  \item Wort-Ersetzungs-System: ein Wort-Ersetzungs-System ist ein Paar
+    $(\Sigma, \rightarrow)$ bestehend aus
+    \begin{enumerate}
+      \item einer endlichen Menge $\Sigma$, dem sogenannten Alphabet, und
+      \item einer endlichen binären Relation $\rightarrow\ \subseteq \Sigma^*
+        \times \Sigma^*$ auf dem Wortmonoid von $\Sigma^*$,
+    \end{enumerate}
+    welche unter Anfügen beliebiger Präfixe und Postfixe in ihrer Gültigkeit
+    invariant bleibt, also die folgende Eigenschaft hat:
+    \begin{align*}
+      \forall x,z,u,v \in \Sigma^*:
+      u \rightarrow v \Rightarrow xuz \rightarrow xvz
+    \end{align*}
+
+  \item Induzierte Relationen: sei $(\Sigma, \mapsto)$ ein Semi-\textsc{Thue}
+    System. Dieses induziert dann weitere Relationen auf dem Wortmonoid:
+    \begin{enumerate}
+      \item Die Relation der einstufigen Ableitung $\rightarrow \ \subseteq
+        \Sigma^* \times \Sigma^*$ ist definiert durch die Beziehung: $a
+        \rightarrow b$ genau dann, wenn $\exists x,y,u,v \in \Sigma^*$ mit
+        $a = x u y, b = x v y, u \mapsto v$.
+
+        $(\Sigma, \rightarrow)$ ist also das vom Semi-\textsc{Thue} System
+        erzeugte Wort-Ersetzungs-System.
+
+      \item Die Relation der mehrstufigen Ableitung $\rightarrow^* \ \subseteq
+        \Sigma^* \times \Sigma^*$ ist definiert durch die Beziehung: $a
+        \rightarrow^* b$ genau dann, wenn $\exists s_0, s_1, \dots, s_n \in
+        \Sigma^*$ mit $a = s_0 \rightarrow s_1 \rightarrow \dots \rightarrow s_n
+        = b$.
+    \end{enumerate}
+
+  \item Überlappungs-Eigenschaften: wir betrachten die linken Seiten $l_1, l_2$
+    von den Regeln $l_1 \mapsto r_1$ und $l_2 \mapsto r_2$ eines
+    Semi-\textsc{Thue} Systems. Die linken Seiten können die folgenden, für
+    Konfluenz kritischen Eigenschaften aufweisen:
+    \begin{description}
+      \item[Gleichheit:] Die Muster der Regeln sind gleich: $l_1 = l_2$
+      \item[Enthalten-Sein:] Ein Muster ist in dem anderen enthalten:
+        \begin{align*}
+          \exists u,v \in \Sigma^*: l_1 = u l_2 v \ \vee \ l_2 = u l_1 v
+        \end{align*}
+      \item[Überlappung:] Ein Muster überlappt sich mit dem anderen Muster:
+        \begin{align*}
+          \exists a,b,c \in \Sigma^*, b \neq \varepsilon:
+          (l_1 = ab \ \wedge \ l_2 = bc) \ \vee \ (l_1 = bc \ \wedge \ l_2 = ab)
+        \end{align*}
+    \end{description}
+
+  \item Echtes Enthalten-Sein: ein Muster ist in dem anderen Muster echt
+    enthalten, wenn es in dem Muster enthalten ist, aber von diesem verschieden
+    ist.
+
+  \item Echte Überlappung: ein Muster überlappt sich mit dem anderen Muster
+    echt, wenn es mit diesem Muster überlappt, aber von diesem verschieden ist.
+
+  \item Kritisches Paar: die zwei Regeln $l_1 \mapsto r_1$ und $l_2 \mapsto r_2$
+    bilden ein kritisches Regel-Paar, wenn das Muster einer Regel mit dem Muster
+    der anderen Regel identisch ist, mit ihm echt überlappt oder in ihm echt
+    enthalten ist.
+
+  \item Konfluenz-Theorem: wir betrachten ein Wort-Ersetzungs-System, das aus
+    einem Semi-\textsc{Thue} System erzeugt wird. Dann gilt: wenn die kritischen
+    Paare, die sich aus den kritischen Regel-Paaren des Semi-\textsc{Thue}
+    Systems ergeben, ein gemeinsames Redukt haben, dann ist das
+    Wort-Ersetzungs-System lokal konfluent.
+\end{itemize}
+
+\paragraph{Term-Ersetzungs-Systeme}
+\label{par:term_ersetzungs_systeme}
+
+\begin{itemize}
+  \item Term-Ersetzungs-System: \dots
+
+  \item Von Regeln erzeugte Term-Ersetzungs-Systeme: \dots
+
+  \item Terminations-Lemma: für ein terminierendes Term-Ersetzungs-System
+    $\rightarrow \ \subseteq \textbf{Exp} \times \textbf{Exp}$ gilt:
+    \begin{enumerate}
+      \item Die linke Seite einer Reduktion besteht niemals nur aus einer
+        Variablen.
+      \item Eine Reduktion führt keine neuen (auf der linken Seite noch nicht
+        benutzten) Variablen ein. Genauer: bezeichnet $\textbf{Var}(t)$ die
+        Menge der Variablen, die in einem Term auftreten und ist $t \rightarrow
+        u$, dann gilt $\textbf{Var}(t) \supseteq \textbf{Var}(u)$.
+    \end{enumerate}
+
+  \item Kritisches Paar: \dots
+
+  \item Critical Pair Lemma (\textsc{Huet}): Ein von einer Menge von Regeln
+    erzeugtes Term-Ersetzungs-System ist lokal konfluent genau dann, wenn jedes
+    kritische Paar $(p, q)$ der Regelmenge geschlossen werden kann, es also (in
+    mehreren Schritten) zu einem gemeinsamen Termin reduziert: $p \rightarrow^*
+    z$ und $q \rightarrow^* z$.
+
+  \item Lineare Terme: ein Term $p \in \textbf{Exp}$ heißt linear, wenn keine
+    Variable mehr als einmal in dem Term auftaucht.
+
+    Ein Term-Ersetzungs-System heißt links-linear, wenn es aus einer Menge von
+    Reduktionsregeln erzeugt werden kann, bei der die linke Seite jeder Regel
+    ein linearer Term ist.
+
+  \item Orthogonal: ein Term-Ersetzungs-System heißt orthogonal, wenn es frei
+    von kritischen Paaren und links-linear ist.
+
+  \item Satz von \textsc{Rosen}: jedes orthogonale Term-Ersetzungs-System ist
+    konfluent.
+\end{itemize}
+
+\paragraph{Rekursion, Reduktion, Evaluation}
+\label{par:rekursion_reduktion_evaluation}
+
+\begin{itemize}
+  \item Reduktions-Strategie: sei $(\rightarrow, \textbf{Exp})$ ein
+    Term-Ersetzungs-System.
+
+    Eine (einschrittige) Reduktions-Strategie für $\rightarrow$ ist eine
+    Abbildung $\rho: \textbf{Exp} \rightarrow \textbf{Exp}$, bei der für jeden
+    Term $t \in \textbf{Exp}$ gilt:
+    \begin{enumerate}
+      \item Falls $t$ Normalform ist, dann gilt $\rho(t) = t$
+      \item In allen anderen Fällen gilt $t \rightarrow \rho(t)$.
+    \end{enumerate}
+
+    Eine (mehrschrittige) Reduktions-Strategie für $\rightarrow$ ist eine
+    Abbildung $\rho: \textbf{Exp} \rightarrow \textbf{Exp}$, bei der für jeden
+    Term $t \in \textbf{Exp}$ gilt:
+    \begin{enumerate}
+      \item Falls $t$ Normalform ist, dann gilt $\rho(t) = t$
+      \item In allen anderen Fällen gilt $t \rightarrow^+ \rho(t)$.
+    \end{enumerate}
+
+  \item Redex: sei $u \rightarrow v$ eine Reduktion im Term-Ersetzungs-System
+    $\rightarrow \ \subseteq \textbf{Exp} \times \textbf{Exp}$.
+
+    Die Position $p$ im Term $u$ heißt ein Redex der Reduktion $u \rightarrow
+    v$, falls $u \prightarrow w$ und $v = u{[w]}_p$. Das bedeutet anschaulich,
+    dass $u$ in der Position $p$ reduzierbar ist und $v$ aus $u$ gerade durch
+    eine Reduktion des Teilterms an dieser Position entsteht.
+
+    Die Position $p$ in $u$ heißt reduzierbar, wenn es eine Reduktion $u
+    \rightarrow v$ gibt, in der $p$ ein Redex dieser Reduktion ist.
+
+    Ein Redex heißt minimal, wenn es keine reduzierbaren (echten) Teilterme
+    enthält.
+
+    Ein Redex heißt maximal, wenn es nicht (echter) Teilterm eines reduzierbaren
+    Terms ist.
+
+  \item Wichtige einschrittige Strategien: eine einschrittige
+    Reduktions-Strategie $\rho : \textbf{Exp} \rightarrow \textbf{Exp}$ für ein
+    Term-Ersetzungs-System $\rightarrow \ \subseteq \textbf{Exp} \times
+    \textbf{Exp}$ heißt
+    \begin{description}
+      \item[innermost,] wenn es zu jeder Reduktion $t \rightarrow \rho(t)$ die
+        Möglichkeit gibt, diese als Reduktion eines minimalen Redex zu
+        interpretieren.
+
+      \item[outermost,] wenn es zu jeder Reduktion $t \rightarrow \rho(t)$ die
+        Möglichkeit gibt, diese als Reduktion eines maximalen Redex zu
+        interpretieren.
+    \end{description}
+
+    Zwei spezifische Familien einschrittiger Reduktions-Strategien sind
+    besonders wichtig:
+    \begin{description}
+      \item[leftmost innermost Reduktions-Strategien] reduzieren stets die
+        linkeste reduzierbare Position, die selber keine reduzierbaren Teilterme
+        mehr enthält.
+      \item[leftmost outermost Reduktions-Strategien] reduzieren stets die
+        linkeste reduzierbare Position.
+    \end{description}
+
+  \item Wichtige mehrschrittige Strategien:
+    \begin{description}
+      \item[parallel innermost Reduktions-Strategien] reduzieren simultan alle
+        reduzierbaren Terme, die selber keine reduzierbaren Terme enthalten
+
+        Beispiel: $g(f(f(0, \underline{f}(0, 1)), f(\underline{f}(2, 0),
+        \underline{f}(3,1))))$ bei einem Term-Ersetzungs-System, das durch
+        Regeln der Form $f(x,y) \mapsto \dots$ erzeugt wird.
+
+      \item[parallel outermost Reduktions-Strategien] reduzieren simultan alle
+        reduzierbaren Terme, die nicht Teilterm eines reduzierbaren Terms sind.
+
+        Beispiel: $g(\underline{f}(0, f(0, 1)), \underline{f}(f(2, 0), f(3,1)))$
+        bei einem Term-Ersetzungs-System, das durch Regeln der Form $f(x,y)
+        \mapsto \dots$ erzeugt wird.
+
+      \item[free argument Reduktions-Strategien] reduzieren simultan alle
+        reduzierbaren Terme, bei denen zumindest ein Teilterm nicht reduzierbar
+        ist.
+
+        Beispiel: $g(\underline{f}(0, \underline{f}(0, 1)), f(\underline{f}(2,
+        0), \underline{f}(3,1)))$ bei einem Term-Ersetzungs-System, das durch
+        Regeln der Form $f(x,y) \mapsto \dots$ erzeugt wird.
+
+      \item[full substitution Reduktions-Strategien] reduzieren simultan alle
+        reduzierbaren Terme.
+
+        Beispiel: $g(\underline{f}(0, \underline{f}(0, 1)),
+        \underline{f}(\underline{f}(2, 0), \underline{f}(3,1)))$ bei einem
+        Term-Ersetzungs-System, das durch Regeln der Form $f(x,y) \mapsto \dots$
+        erzeugt wird.
+    \end{description}
+
+  \item Eigenschaften von Reduktions-Strategien: sei $\rightarrow \subseteq
+    \textbf{Exp} \times \textbf{Exp}$ ein Term-Ersetzungs-System. Die (ein- oder
+    mehrschrittige) Reduktions-Strategie $\rho: \textbf{Exp} \rightarrow
+    \textbf{Exp}$ heißt normalisierend, wenn für jeden Term $t \in
+    \textbf{Exp}$, zu dem (mindestens) eine Normalform existiert, die Folge $t,
+    \rho(t), \rho^2(t), \dots$ (mindestens) eine Normalform enthält.
+
+  \item Normalisierende Strategien: parallel outermost und full substitution
+    sind für orthogonale Systeme normalisierend.
+
+  \item Evaluation von Funktionen:
+    \begin{description}
+      \item[strikte Auswertung (strict evaluation)] bedeutet: bevor mit der
+        Auswertung eines funktionalen Ausdrucks begonnen wird, sind die Werte
+        aller Teilausdrücke zu bestimmen. Das gilt selbst dann, wenn diese
+        Teilausdrücke in der Berechnung des Ausdrucks gar nicht „benötigt“
+        werden.
+
+      \item[nicht-strikte, verzögerte Auswertung (delayed evaluation)] fordert:
+        die Werte der Argumente einer Funktion, werden erst dann bestimmt, wenn
+        diese Argument in der Berechnung der Funktion „tatsächlich benötigt“
+        wird. Dabei regelt die Semantik der spezifischen Programmiersprache, was
+        mit „tatsächlich benötigt“ genau gemeint ist.
+
+        Verzögerte Auswertung erlaubt die Beschreibung etlicher unendlicher
+        Datenstrukturen, da diese erst dann (teilweise) aufgebaut werden, sobald
+        die entsprechenden Komponenten benötigt werden. Die unendliche Struktur
+        wird also nicht tatsächlich, sondern nur virtuell aufgebaut.
+    \end{description}
+
+  \item Strikte und verzögerte Auswertung ist eine Eigenschaft der Auswertung
+    einer Funktionsbeschreibung und keine Eigenschaft der Funktion selbst.
 \end{itemize}
 
 \section{Übungsserien}
