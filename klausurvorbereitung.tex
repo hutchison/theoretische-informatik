@@ -175,6 +175,87 @@
 \subsection{Semantik}
 \label{sub:themen_inhalte_semantik}
 
+\subsubsection{Formale Ausdrücke}
+\label{ssub:formale_ausdruecke}
+
+\paragraph{Zustände}
+\label{par:zustande}
+
+\begin{itemize}
+  \item Zustände: sei \textbf{Var} eine Menge von Variablen und \textbf{Val}
+    eine Menge von Werten. Ein Zustand ist eine partielle Funktion $s:
+    \textbf{Var} \rightharpoonup \textbf{Val}$.
+
+  \item Notation von Zuständen: der Zustand $s: \textbf{Var} \rightharpoonup
+    \textbf{Val}$ mit $\mathcal{D}(s) = \{x_1, x_2, \dots, x_n\}$ und $s(x_i) =
+    w_i$ wird auch als $[x_1 \mapsto w_1, \dots, x_n \mapsto w_n]$ notiert.
+
+  \item Die Erweiterung des Zustands $s_1: \textbf{Var} \rightharpoonup
+    \textbf{Val}$ um den Zustand $s_2: \textbf{Var} \rightharpoonup
+    \textbf{Val}$ ist definiert als
+    \begin{align*}
+      s_1 \oplus s_1: & \textbf{Var} \rightharpoonup \textbf{Val}\\
+      & v \mapsto (s_1 \oplus s_2)(v) :=
+        \begin{cases}
+          s_2(v), & \Leftrightarrow v \in \mathcal{D}(s_2)\\
+          s_1(v), & \Leftrightarrow v \in \mathcal{D}(s_1)
+            \wedge v \notin \mathcal{D}(s_2)\\
+        \end{cases}
+    \end{align*}
+
+    Bei einer Erweiterung wird ein Zustand also von links nach rechts
+    „überschrieben“.
+
+    Für eine abstrakte Menge von Zuständen schreiben wir neben $\textbf{Var}
+    \rightharpoonup \textbf{Val}$ gelegentlich auch $\mathcal{Z}$.
+\end{itemize}
+
+\paragraph{Interpretation}
+\label{par:interpretation}
+
+\begin{itemize}
+  \item Interpretationsfunktion:
+    \begin{align*}
+      \llbracket \ \rrbracket:
+        \textbf{Exp} \rightarrow
+          \Big[ \,
+            \big[
+              \underbrace{\textbf{Var} \rightarrow \N_0}_{\text{Zustand}}
+            \big]
+            \rightarrow
+            \underbrace{\N_0}_{\text{Wert}}
+          \Big]
+    \end{align*}
+    oder allgemein:
+    \begin{align*}
+      \llbracket \ \rrbracket:
+        \textbf{Exp} \rightarrow
+          \Big[ \,
+            \big[
+              \underbrace{\textbf{Var} \rightarrow \textbf{Val}}_{\text{Zustand}}
+            \big]
+            \rightarrow
+            \underbrace{\textbf{Val}}_{\text{Wert}}
+          \Big]
+    \end{align*}
+    oder:
+    \begin{align*}
+      \llbracket \ \rrbracket:
+        \textbf{Exp} \rightarrow
+          \left[\mathcal{Z} \rightarrow \textbf{Val} \right]
+    \end{align*}
+
+  \item Die Interpretation eines Ausdrucks, der nur aus der Variable $x$
+    besteht, ist $\llbracket x \rrbracket$. Das ist nach Definition eine
+    Funktion $\left[ \textbf{Var} \rightarrow \N_0 \right] \rightarrow \N_0$.
+    Für jeden Zustand $\sigma: \textbf{Var} \rightarrow \textbf{Val}$ ist somit
+    $\llbracket x \rrbracket (\sigma)$ eine natürliche Zahl. Es ist naheliegend,
+    hier $\llbracket x \rrbracket (\sigma) = \sigma(x)$ zu fordern: die
+    Bedeutung $\llbracket x \rrbracket (\sigma)$ einer Variablen $x$ (als
+    Ausdruck) in einem Zustand $\sigma$ ist durch den Wert $\sigma(x)$ der
+    Variablen in diesem Zustand gegeben.
+\end{itemize}
+
 \subsubsection{Ersetzungs-Systeme}
 \label{ssub:Ersetzungs-Systeme}
 
@@ -659,6 +740,11 @@
   \item Strikte und verzögerte Auswertung ist eine Eigenschaft der Auswertung
     einer Funktionsbeschreibung und keine Eigenschaft der Funktion selbst.
 \end{itemize}
+
+\subsubsection{Semantik einfacher Sprachen}
+\label{ssub:Semantik einfacher Sprachen}
+
+
 
 \section{Übungsserien}
 
