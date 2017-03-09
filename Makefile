@@ -6,3 +6,4 @@ klausurvorbereitung.pdf: klausurvorbereitung.tex
 
 clean:
 	-rm -f *.aux *.log *.fls *.out *.fdb_latexmk *.toc
+	-rm klausurvorbereitung.pdf
