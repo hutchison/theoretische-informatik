@@ -3,7 +3,10 @@
   11pt,
 ]{scrartcl}
 
+\usepackage{cmap}
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+
 \usepackage[
   cm,
   headings
@@ -17,6 +20,8 @@
 \usepackage{color}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{myblue}{rgb}{0,0,0.8}
+\definecolor{myred}{rgb}{0.8,0,0}
+\definecolor{mygreen}{rgb}{0,0.6,0}
 
 \usepackage[
   colorlinks=true,
@@ -69,6 +74,8 @@
 \usepackage{algorithmic}
 \renewcommand{\algorithmicrequire}{\textbf{Eingabe:}}
 
+\usepackage{bussproofs}
+
 % coole Kopf- und Fußzeilen:
 \usepackage{fancyhdr}
 % Seitenstil ist natürlich fancy:
@@ -95,7 +102,17 @@
 
 \newcommand{\p}{\leq_{\textsf{p}}}
 \newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
 \renewcommand{\O}{\mathcal{O}}
+\newcommand{\Ac}{\mathcal{A}}
+\newcommand{\Bc}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Nc}{\mathcal{N}}
+\newcommand{\Rc}{\mathcal{R}}
+\newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Vc}{\mathcal{V}}
+\newcommand{\Zc}{\mathcal{Z}}
 \renewcommand{\ae}{\leq_{\textsf{ae}}}
 
 \newcommand{\COLOR}{\textsf{COLOR}}
@@ -187,7 +204,7 @@
     \textbf{Var} \rightharpoonup \textbf{Val}$.
 
   \item Notation von Zuständen: der Zustand $s: \textbf{Var} \rightharpoonup
-    \textbf{Val}$ mit $\mathcal{D}(s) = \{x_1, x_2, \dots, x_n\}$ und $s(x_i) =
+    \textbf{Val}$ mit $\Dc(s) = \{x_1, x_2, \dots, x_n\}$ und $s(x_i) =
     w_i$ wird auch als $[x_1 \mapsto w_1, \dots, x_n \mapsto w_n]$ notiert.
 
   \item Die Erweiterung des Zustands $s_1: \textbf{Var} \rightharpoonup
@@ -197,9 +214,9 @@
       s_1 \oplus s_1: & \textbf{Var} \rightharpoonup \textbf{Val}\\
       & v \mapsto (s_1 \oplus s_2)(v) :=
         \begin{cases}
-          s_2(v), & \Leftrightarrow v \in \mathcal{D}(s_2)\\
-          s_1(v), & \Leftrightarrow v \in \mathcal{D}(s_1)
-            \wedge v \notin \mathcal{D}(s_2)\\
+          s_2(v), & \Leftrightarrow v \in \Dc(s_2)\\
+          s_1(v), & \Leftrightarrow v \in \Dc(s_1)
+            \wedge v \notin \Dc(s_2)\\
         \end{cases}
     \end{align*}
 
@@ -207,7 +224,7 @@
     „überschrieben“.
 
     Für eine abstrakte Menge von Zuständen schreiben wir neben $\textbf{Var}
-    \rightharpoonup \textbf{Val}$ gelegentlich auch $\mathcal{Z}$.
+    \rightharpoonup \textbf{Val}$ gelegentlich auch $\Zc$.
 \end{itemize}
 
 \paragraph{Interpretation}
@@ -242,7 +259,7 @@
     \begin{align*}
       \llbracket \ \rrbracket:
         \textbf{Exp} \rightarrow
-          \left[\mathcal{Z} \rightarrow \textbf{Val} \right]
+          \left[\Zc \rightarrow \textbf{Val} \right]
     \end{align*}
 
   \item Die Interpretation eines Ausdrucks, der nur aus der Variable $x$
@@ -407,15 +424,15 @@
       \item[lokal konfluent,] wenn jedes Element $m \in M$ lokal konfluent ist.
     \end{description}
 
-  \item Konfluenz-Eigenschaften: für jedes Ersetzungs-System $\mathcal{R} = (M,
+  \item Konfluenz-Eigenschaften: für jedes Ersetzungs-System $\Rc = (M,
     \rightarrow)$ gilt:
     \begin{enumerate}
-      \item $\mathcal{R}$ konfluent $\Rightarrow \mathcal{R}$ semi-konfluent
-        $\Rightarrow \mathcal{R}$ lokal konfluent.
-      \item $\mathcal{R}$ semi-konfluent $\Rightarrow \mathcal{R}$
+      \item $\Rc$ konfluent $\Rightarrow \Rc$ semi-konfluent
+        $\Rightarrow \Rc$ lokal konfluent.
+      \item $\Rc$ semi-konfluent $\Rightarrow \Rc$
         konfluent.
-      \item $\mathcal{R}$ lokal konfluent und terminierend $\Rightarrow
-        \mathcal{R}$ semi-konfluent.
+      \item $\Rc$ lokal konfluent und terminierend $\Rightarrow
+        \Rc$ semi-konfluent.
     \end{enumerate}
 
   \item \textsc{Church-Rosser} Eigenschaft: ein Ersetzungs-System $(M,
@@ -744,7 +761,195 @@
 \subsubsection{Semantik einfacher Sprachen}
 \label{ssub:Semantik einfacher Sprachen}
 
+\paragraph{Die Schleifensprache LOOP}
+\label{par:die_schleifensprache_loop}
 
+\begin{itemize}
+  \item Grammatik von \textsc{Loop}:
+    \begin{align*}
+      \texttt{<Aexp>} \quad \rightarrow \quad
+        & \texttt{<Num> | <Var> |}\\
+        & \texttt{(<Aexp> + <Aexp>) | (<Aexp> - <Aexp>) |}\\
+        & \texttt{(<Aexp> * <Aexp>)}\\
+      \texttt{<Bexp>} \quad \rightarrow \quad
+        & \texttt{T | F |}\\
+        & \texttt{(<Aexp> = <Aexp>) | (<Aexp> <= <Aexp>) |}\\
+        & \texttt{(<Bexp> AND <Bexp>) | (<Bexp> OR <Bexp>) |}\\
+        & \texttt{NOT (<Bexp>)}\\
+      \texttt{<Stm>} \quad \rightarrow \quad
+        & \texttt{<Var> := <Aexp> |}\\
+        & \texttt{SKIP |}\\
+        & \texttt{( <Stm> ; <Stm> ) |}\\
+        & \texttt{IF <Bexp> THEN <Stm> ELSE <Stm> FI |}\\
+        & \texttt{LOOP <Aexp> DO <Stm> OD}\\
+    \end{align*}
+
+  \item Semantik der Sprache \textsc{Loop}:
+    aus Sicht der formalen Sprachen ist dies eine kontextfreie Grammatik mit den
+    Nichtterminalen \texttt{<Aexp>}, \texttt{<Bexp>}, \texttt{<Stm>},
+    \texttt{<Num>} und \texttt{<Var>}. Uns interessieren jetzt jedoch nicht die
+    syntaktischen Aspekte der Sprache, sondern die semantischen (also welche
+    Bedeutung wir den einzelnen Elementen der Sprache zuschreiben).
+
+    Die Nichtterminale führen uns zu fünf syntaktischen Kategorien, für die
+    jeweils eine Interpretation angegeben werden soll:
+    \begin{itemize}
+      \item Variablensymbole
+      \item Konstantensymbole
+      \item \textsc{Bool}sche Ausdrücke
+      \item arithmetische Ausdrücke
+      \item Anweisungen (bzw. Statements)
+    \end{itemize}
+
+    Im Abschnitt~\nameref{par:zustande} (\ref{par:zustande}) haben wir schon den
+    Ansatz über die Interpretation von Variablen kennengelernt. Daraus ergibt
+    sich:
+    \begin{align*}
+      \llbracket \ \rrbracket_{\Vc}: \quad
+        \textbf{Var} \rightarrow
+          \big[
+            \left[ \textbf{Var} \rightarrow \Z \right]
+            \rightarrow \Z
+          \big]
+    \end{align*}
+    Die Interpretation numerischer Konstanten kann man einfach oder konsistent
+    mit den anderen Interpretationen festlegen:
+    \begin{align*}
+      \llbracket \ \rrbracket_{\Nc}: \quad &
+        \textbf{Num} \rightarrow \Z\\
+      \llbracket \ \rrbracket_{\Nc}: \quad &
+        \textbf{Num} \rightarrow
+          \big[
+            \left[ \textbf{Var} \rightarrow \Z \right]
+            \rightarrow \Z
+          \big]
+    \end{align*}
+    Analog folgt die Interpretation für \textsc{Bool}sche und arithmetische
+    Ausdrücke:
+    \begin{align*}
+      \llbracket \ \rrbracket_{\Bc}: \quad &
+        \textbf{Bexp} \rightarrow
+          \big[
+            \left[ \textbf{Var} \rightarrow \Z \right]
+            \rightarrow \{ \textbf{T}, \textbf{F} \}
+          \big]\\
+      \llbracket \ \rrbracket_{\Ac}: \quad &
+        \textbf{Aexp} \rightarrow
+          \big[
+            \left[ \textbf{Var} \rightarrow \Z \right]
+            \rightarrow \Z
+          \big]\\
+    \end{align*}
+    Anweisungen werden den jeweiligen Zustand verändern und bekommen daher am
+    besten die Interpretation als Zustandstransformator:
+    \begin{align*}
+      \llbracket \ \rrbracket_{\Sc}: \quad &
+        \textbf{Stm} \rightarrow
+          \big[
+            \left[ \textbf{Var} \rightarrow \Z \right]
+            \rightarrow
+            \left[ \textbf{Var} \rightarrow \Z \right]
+          \big]
+    \end{align*}
+    Mit der Konvention von $\Zc := \textbf{Var} \rightarrow \Z$ können wir das
+    noch übersichtlicher schreiben:
+    \begin{center}
+      \begin{tabular}{lll}
+        $\llbracket \ \rrbracket_{\Vc}$:
+        & \textbf{Var}
+        & $\rightarrow \ \left[ \Zc \rightarrow \Z \right]$\\
+        $\llbracket \ \rrbracket_{\Nc}$:
+        & \textbf{Num}
+        & $\rightarrow \ \left[ \Zc \rightarrow \Z \right]$\\
+        $\llbracket \ \rrbracket_{\Bc}$:
+        & \textbf{Bexp}
+        & $\rightarrow \ \left[ \Zc \rightarrow \{ \textbf{T}, \textbf{F} \} \right]$\\
+        $\llbracket \ \rrbracket_{\Ac}$:
+        & \textbf{Aexp}
+        & $\rightarrow \ \left[ \Zc \rightarrow \Z \right]$\\
+        $\llbracket \ \rrbracket_{\Sc}$:
+        & \textbf{Stm}
+        & $\rightarrow \ \left[ \Zc \rightarrow \Zc \right]$\\
+      \end{tabular}
+    \end{center}
+\end{itemize}
+
+\paragraph{Die Bedingungssprache WHILE}
+\label{par:die_bedingungssprache_while}
+
+\begin{itemize}
+  \item Jetzt wird's spannend, weil die Situation eintreten kann, dass das
+    Programm nicht terminiert. Wir geben vier verschiedene (aber äquivalente)
+    Semantiken an:
+    \begin{description}
+      \item[rekursive Semantik] beschreibt ein Programm als einen partiell
+        definierten Zustandstransformator, der aus einem
+        \textcolor{myred}{Anfangszustand} einen \textcolor{myblue}{Endzustand}
+        macht:
+        \begin{align*}
+          \llbracket \ \rrbracket_{\Sc}:
+          \textbf{Stm} \rightarrow
+          \Big[
+            \textcolor{myred}{\big[ \textbf{Var} \rightarrow \Z \big]}
+            \rightharpoonup
+            \textcolor{myblue}{\big[ \textbf{Var} \rightarrow \Z \big]}
+          \Big]
+        \end{align*}
+
+      \item[Continuation Semantik] beschreibt ein Programm als eine totale
+        Funktion, die einen \textcolor{myred}{Zustand} in einen
+        \textcolor{myblue}{Zustand} und eine \textcolor{mygreen}{Continuation}
+        abbildet:
+        \begin{align*}
+          \llbracket \ \rrbracket_{\Cc}:
+          \textbf{Stm} \rightarrow
+          \Big[
+            \textcolor{myred}{\big[ \textbf{Var} \rightarrow \Z \big]}
+            \rightarrow
+            \textcolor{myblue}{\big[ \textbf{Var} \rightarrow \Z \big]}
+            \times
+            \textcolor{mygreen}{\textbf{Stm}}
+          \Big]
+        \end{align*}
+
+      \item[natürliche Semantik] beschreibt ein Programm als eine Relation, die
+        ausdrückt, wie ein Programm auf einen \textcolor{myred}{Zustand} wirkt
+        und sich daraus unter Umständen ein \textcolor{myblue}{Endzustand}
+        ergeben kann:
+        \begin{align*}
+          \rightarrow \ \subseteq
+          \Big(
+          \textbf{Stm}
+          \times
+          \textcolor{myred}{\big[ \textbf{Var} \rightarrow \Z \big]}
+          \Big)
+          \times
+          \textcolor{myblue}{\big[ \textbf{Var} \rightarrow \Z \big]}
+        \end{align*}
+
+      \item[strukturelle Semantik] beschreibt ein Programm wie die natürliche
+        Semantik, nur dass auf der rechten Seite neben einem
+        \textcolor{myblue}{Zustand} auch noch eine
+        \textcolor{mygreen}{Continuation} plus \textcolor{myblue}{Zustand}
+        möglich ist:
+        \begin{align*}
+          \rightarrow \ \subseteq
+          \Big(
+          \textbf{Stm}
+          \times
+          \textcolor{myred}{\big[ \textbf{Var} \rightarrow \Z \big]}
+          \Big)
+          \times
+          \Big(
+          \textcolor{mygreen}{\textbf{Stm}}
+          \times
+          \textcolor{myblue}{\big[ \textbf{Var} \rightarrow \Z \big]}
+          \Big)
+          \cup
+          \textcolor{myblue}{\big[ \textbf{Var} \rightarrow \Z \big]}
+        \end{align*}
+    \end{description}
+\end{itemize}
 
 \section{Übungsserien}
 
