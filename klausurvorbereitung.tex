@@ -1092,6 +1092,76 @@
     \end{description}
 \end{itemize}
 
+\subsubsection{Denotationelle Semantik}
+\label{ssub:Denotationelle Semantik}
+
+\begin{itemize}
+  \item Domain: sei $D$ eine Menge und $\sqsubseteq \subseteq D \times D$ eine
+    Ordnungsrelation (reflexiv, identitiv, transitiv).
+
+    Eine (aufsteigende) $\omega$-Kette ist eine monoton wachsende Folge von
+    Elemente in $D$ (also eine Funktion $a: \N_0 \rightarrow D$ bzw. Familie
+    ${(a_n)}_{n \in \N_0}$) mit
+    \begin{align*}
+      a_0 \sqsubseteq a_1 \sqsubseteq a_2 \sqsubseteq \dots
+    \end{align*}
+    Eine Kette ist eine linear geordnete Menge.
+
+    Sei $S \subseteq D$ eine Menge. Ein Element $d \in D$ heißt eine obere
+    Schranke von $S$, wenn jedes Element $s$ von $S$ kleiner ist als $d$:
+    \begin{align*}
+      \forall s \in S: s \sqsubseteq d
+    \end{align*}
+
+    Eine Menge $T \subseteq D$ besitzt ein kleinstes Element $s$, wenn jedes
+    andere Element in $T$ größer ist als $s$ und $s$ in $T$ liegt.
+
+    Ein Element $d \in D$ heißt die kleinste obere Schranke von $S$, wenn die
+    Menge aller oberen Schranken von $S$ ein kleinstes Element besitzt.
+
+    Ein Domain ist ein Paar $(D, \sqsubseteq)$ aus einer Menge und einer
+    Ordnungsrelation mit den folgenden beiden Eigenschaften:
+    \begin{enumerate}
+      \item Es gibt ein kleinstes Element $\bot \in D$. Das bedeutet:
+        \begin{align*}
+          \exists \bot \in D:
+            \forall d \in D:
+              \bot \sqsubseteq d
+        \end{align*}
+
+      \item Jede Kette in $D$ besitzt eine kleinste obere Schranke in $D$.
+    \end{enumerate}
+
+    In einem Domain bezeichne $\sup\limits_{n \in \N_0}$ die kleinste obere
+    Schranke einer aufsteigenden $\omega$-Kette $a_0, a_1, \dots$. Analog
+    bezeichne $\sup \Kc$ die kleinste obere Schranke einer beliebigen Kette.
+
+  \item Monotonie, Stetigkeit, Striktheit: seien $(A, \sqsubseteq_A)$ und $(B,
+    \sqsubseteq_B)$ zwei Domains.
+
+    Eine Funktion $f: A \rightarrow B$ heißt
+    \begin{description}
+      \item[monoton,] wenn gilt:
+        \begin{align*}
+          \forall a_1, a_2 \in A:
+            a_1 \sqsubseteq_A a_2 \Rightarrow f(a_1) \sqsubseteq_B f(a_2)
+        \end{align*}
+
+      \item[stetig,] wenn für jede aufsteigende Kette ${(a_n)}_{n \in \N_0}$:
+        \begin{align*}
+          f \left( \sup\limits_{n \in \N_0} (a_n) \right)
+          =
+          \sup\limits_{n \in \N_0} \left( f (a_n) \right)
+        \end{align*}
+
+      \item[strikt,] wenn sie das kleinste Element des ersten Domains auf das
+        kleinste Element des zweiten Domains abbildet:
+        \begin{align*}
+          f ( \bot_A ) = \bot_B
+        \end{align*}
+    \end{description}
+\end{itemize}
+
 \section{Übungsserien}
 
 \subsection{Komplexität und Formale Sprachen}
