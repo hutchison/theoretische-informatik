@@ -95,6 +95,8 @@
 \renewcommand{\headrulewidth}{0.0pt}
 \renewcommand{\footrulewidth}{0.0pt}
 
+\allowdisplaybreaks{}
+
 \title{Klausurvorbereitung: Theoretische Informatik}
 
 \subtitle{Universität Rostock}
@@ -135,6 +137,7 @@
 \newcommand{\IS}{\textsf{INDEPENDENT SET}}
 \newcommand{\VC}{\textsf{VERTEX COVER}}
 \newcommand{\IV}{\textsf{INTERESSENVERTRETER}}
+\newcommand{\wpc}{\textit{wp}}
 
 \newcommand{\prightarrow}{\ {}_p\!\!\rightarrow}
 
@@ -1169,6 +1172,122 @@
           f ( \bot_A ) = \bot_B
         \end{align*}
     \end{description}
+\end{itemize}
+
+\subsubsection{Axiomatische Semantik}
+\label{ssub:Axiomatische Semantik}
+
+\paragraph{Das WP-Kalkül}
+\label{par:das_wp_kalkul}
+
+\begin{itemize}
+  \item Beispiel: weakest precondition finden:
+
+    Angenommen wir haben folgendes C-Programm:
+    \begin{lstlisting}[language=C]
+      x = 3*y-2;
+      if (x < 12) {
+        y = 3*x-9;
+      } else {
+        y = x+6;
+      }
+      y = y-2;
+    \end{lstlisting}
+    Die postcondition sei $7 \leq y < 25$. Aus dieser leiten wir die weakest
+    precondition her:
+    \begin{align*}
+      & \wpc(\texttt{x = 3*y-2;
+          if (x < 12) \{
+            y = 3*x-9;
+          \} else \{
+            y = x+6;
+          \}
+          \textcolor{myblue}{y = y-2;}},
+        7 \leq y < 25
+      )\\
+      =
+      & \wpc(\texttt{x = 3*y-2;
+          if (x < 12) \{
+            y = 3*x-9;
+          \} else \{
+            y = x+6;
+          \}},
+        7 \leq y-2 < 25
+      )\\
+      =
+      & \wpc(\texttt{x = 3*y-2;
+          if (x < 12) \{
+            y = 3*x-9;
+          \} else \{
+            y = x+6;
+          \}},
+        9 \leq y < 27
+      )\\
+      =
+      & \wpc(\texttt{x = 3*y-2;
+          \textcolor{myblue}{if (x < 12) \{
+            y = 3*x-9;
+          \} else \{
+            y = x+6;
+          \}}},
+        9 \leq y < 27
+      )\\
+      =
+      & \wpc(\texttt{x = 3*y-2;},
+        (x < 12 \land 9 \leq 3x-9 < 27)
+        \lor
+        (x \geq 12 \land 9 \leq x+6 < 27)
+      )\\
+      =
+      & \wpc(\texttt{x = 3*y-2;},
+        (x < 12 \land 6 \leq x < 12)
+        \lor
+        (x \geq 12 \land 3 \leq x < 21)
+      )\\
+      =
+      & \wpc(\texttt{\textcolor{myblue}{x = 3*y-2;}},
+        (x < 12 \land 6 \leq x < 12)
+        \lor
+        (x \geq 12 \land 3 \leq x < 21)
+      )\\
+      =
+      & (3y-2 < 12 \land 6 \leq 3y-2 < 12)
+        \lor
+        (3y-2 \geq 12 \land 3 \leq 3y-2 < 21)
+      \\
+      =
+      & \left(y < \frac{14}{3} \land \frac{8}{3} \leq y < \frac{14}{3}\right)
+        \lor
+        \left(y \geq \frac{14}{3} \land \frac{5}{3} \leq y < \frac{23}{3}\right)
+      \\
+      =
+      & \left(
+          \textcolor{myred}{y < \frac{14}{3}}
+            \land
+          \frac{8}{3} \leq \textcolor{myred}{y < \frac{14}{3}}
+        \right)
+        \lor
+        \underbrace{
+          \left(
+            y \geq \frac{14}{3}
+            \land
+            \frac{5}{3} \leq y < \frac{23}{3}
+          \right)
+        }_{
+          \frac{14}{3} \leq y < \frac{23}{3}
+        }
+      \\
+      =
+      & \left(
+          \frac{8}{3} \leq y < \frac{14}{3}
+        \right)
+        \lor
+        \left(
+          \frac{14}{3} \leq y < \frac{23}{3}
+        \right)
+      \\
+      = & \left( \frac{8}{3} \leq y < \frac{23}{3} \right)
+    \end{align*}
 \end{itemize}
 
 \section{Übungsserien}
