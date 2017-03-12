@@ -91,6 +91,10 @@
 
 \fancyfoot[C]{\thepage}
 
+% Linien oben/unten entfernen:
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
 \title{Klausurvorbereitung: Theoretische Informatik}
 
 \subtitle{Universität Rostock}
@@ -865,7 +869,7 @@
         erzeugt wird.
     \end{description}
 
-  \item Eigenschaften von Reduktions-Strategien: sei $\rightarrow \subseteq
+  \item Eigenschaften von Reduktions-Strategien: sei $\rightarrow \ \subseteq
     \textbf{Exp} \times \textbf{Exp}$ ein Term-Ersetzungs-System. Die (ein- oder
     mehrschrittige) Reduktions-Strategie $\rho: \textbf{Exp} \rightarrow
     \textbf{Exp}$ heißt normalisierend, wenn für jeden Term $t \in
@@ -979,7 +983,7 @@
           \big[
             \left[ \textbf{Var} \rightarrow \Z \right]
             \rightarrow \Z
-          \big]\\
+          \big]
     \end{align*}
     Anweisungen werden den jeweiligen Zustand verändern und bekommen daher am
     besten die Interpretation als Zustandstransformator:
@@ -1096,7 +1100,7 @@
 \label{ssub:Denotationelle Semantik}
 
 \begin{itemize}
-  \item Domain: sei $D$ eine Menge und $\sqsubseteq \subseteq D \times D$ eine
+  \item Domain: sei $D$ eine Menge und $\sqsubseteq \ \subseteq D \times D$ eine
     Ordnungsrelation (reflexiv, identitiv, transitiv).
 
     Eine (aufsteigende) $\omega$-Kette ist eine monoton wachsende Folge von
