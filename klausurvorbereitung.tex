@@ -194,6 +194,53 @@
 \subsection{Semantik}
 \label{sub:themen_inhalte_semantik}
 
+\subsubsection{Induktion}
+\label{ssub:Induktion}
+
+\paragraph{Strukturelle Induktion}
+\label{par:strukturelle_induktion}
+
+\begin{itemize}
+  \item Bildungsregeln: eine Bildungsregel über einer beliebigen Menge $M$ ist
+    ein Paar $(V, e)$ aus einer endlichen Menge $V \sqsubseteq M$, der
+    sogenannten Regel-Voraussetzung, und einem Element $e \in M$, dem
+    sogenannten Erzeugnis der Regel.
+
+    Eine Regel $(\emptyset, e)$ mit leerer Regel-Voraussetzung nennen wir eine
+    Verankerung. Eine Regel $(V, e)$ mit nicht-leerer Regel-Voraussetzung $V
+    \neq \emptyset$ nennen wir einen Schritt.
+
+    Die Anwendung der einzelnen Regel $(V, e)$ auf eine Teilmenge $T \subseteq
+    M$ ist wieder eine Teilmenge von $M$. Sie ist definiert durch:
+    \begin{align*}
+      \alpha( \, (V, e), T) :=
+      \begin{cases}
+        \{ e \} & \text{ falls } V \subseteq T\\
+        \emptyset & \text{ falls } V \subsetneq T
+      \end{cases}
+    \end{align*}
+
+    Die Anwendung der Regelmenge $\Rc$ auf die Teilmenge $T$ ist wieder eine
+    Teilmenge von $M$. Sie ist definiert durch:
+    \begin{align*}
+      \alpha_{\Rc}(T) := \bigcup\limits_{r \in \Rc} \alpha(r, T)
+    \end{align*}
+
+    Die Erweiterung der Teilmenge $T$ durch einmalige Anwendung der Regelmenge
+    $\Rc$ ist gegeben durch:
+    \begin{align*}
+      \sigma_{\Rc}(T) := T \cup \alpha_{\Rc}(T)
+    \end{align*}
+
+    Eine Teilmenge $T \subseteq M$ heißt $\Rc$-abgeschlossen unter einer Menge
+    $\Rc$ von Regeln, wenn gilt: für jede Regel $(V, e) \in \Rc$ gilt: falls die
+    Voraussetzungen der Regel in der Menge $T$ enthalten sind, dann ist auch das
+    Erzeugnis $e$ der Regel in der Menge $T$ enthalten:
+    \begin{align*}
+      \forall (V, e) \in \Rc: V \subseteq T \Rightarrow e \in T
+    \end{align*}
+\end{itemize}
+
 \subsubsection{Formale Ausdrücke}
 \label{ssub:formale_ausdruecke}
 
