@@ -274,7 +274,7 @@
         \begin{cases}
           s_2(v), & \Leftrightarrow v \in \Dc(s_2)\\
           s_1(v), & \Leftrightarrow v \in \Dc(s_1)
-            \wedge v \notin \Dc(s_2)\\
+            \land v \notin \Dc(s_2)\\
         \end{cases}
     \end{align*}
 
@@ -499,7 +499,7 @@
       \forall x, y \in M:
       x \leftrightarrow^* y \Rightarrow
       \exists z \in M:
-      x \rightarrow^* z \wedge y \rightarrow^* z
+      x \rightarrow^* z \land y \rightarrow^* z
     \end{align*}
 
   \item Ein Ersetzungs-System ist genau dann \textsc{Church-Rosser}, wenn es
@@ -616,12 +616,12 @@
       \item[Gleichheit:] Die Muster der Regeln sind gleich: $l_1 = l_2$
       \item[Enthalten-Sein:] Ein Muster ist in dem anderen enthalten:
         \begin{align*}
-          \exists u,v \in \Sigma^*: l_1 = u l_2 v \ \vee \ l_2 = u l_1 v
+          \exists u,v \in \Sigma^*: l_1 = u l_2 v \ \lor \ l_2 = u l_1 v
         \end{align*}
       \item[Überlappung:] Ein Muster überlappt sich mit dem anderen Muster:
         \begin{align*}
           \exists a,b,c \in \Sigma^*, b \neq \varepsilon:
-          (l_1 = ab \ \wedge \ l_2 = bc) \ \vee \ (l_1 = bc \ \wedge \ l_2 = ab)
+          (l_1 = ab \ \land \ l_2 = bc) \ \lor \ (l_1 = bc \ \land \ l_2 = ab)
         \end{align*}
     \end{description}
 
