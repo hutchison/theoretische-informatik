@@ -108,9 +108,11 @@
 \newcommand{\Bc}{\mathcal{B}}
 \newcommand{\Cc}{\mathcal{C}}
 \newcommand{\Dc}{\mathcal{D}}
+\newcommand{\Kc}{\mathcal{K}}
 \newcommand{\Nc}{\mathcal{N}}
 \newcommand{\Rc}{\mathcal{R}}
 \newcommand{\Sc}{\mathcal{S}}
+\newcommand{\Tc}{\mathcal{T}}
 \newcommand{\Vc}{\mathcal{V}}
 \newcommand{\Zc}{\mathcal{Z}}
 \renewcommand{\ae}{\leq_{\textsf{ae}}}
@@ -590,9 +592,68 @@
 \label{par:term_ersetzungs_systeme}
 
 \begin{itemize}
-  \item Term-Ersetzungs-System: \dots
+  \item Term-Ersetzungs-System: sei \textbf{Exp} eine Menge von Termen über
+    einer Signatur $\Tc$ und einer Variablenmenge $\Vc$.
 
-  \item Von Regeln erzeugte Term-Ersetzungs-Systeme: \dots
+    Ein Term-Ersetzungs-System ist eine binäre Relation $\rightarrow \ \subseteq
+    \textbf{Exp} \times \textbf{Exp}$, die unter Kontext-Anwendung und unter
+    Substitutions-Anwendung abgeschlossen ist.
+
+    Das bedeutet konkret:
+    \begin{enumerate}
+      \item Abgeschlossen unter Kontext: für jeden Kontext ${k[]}_p$, der zu einem
+        Term $k$ an einer seiner Positionen $p$ gebildet werden kann, und für
+        zwei Terme $t, u$ gilt:
+        \begin{align*}
+          t \rightarrow u \Rightarrow {k[t]}_p \rightarrow {k[u]}_p
+        \end{align*}
+
+      \item Abgeschlossen unter Substitution: für jede Substitution $\sigma$ und
+        zwei Terme $t, u$ gilt:
+        \begin{align*}
+          t \rightarrow u \Rightarrow \sigma(t) \rightarrow \sigma(u)
+        \end{align*}
+    \end{enumerate}
+
+  \item Von Regeln erzeugte Term-Ersetzungs-Systeme: sei \textbf{Exp} eine Menge
+    von Termen. Für $i = 1, \dots, n$ seien die Regeln $l_i \mapsto r_i$
+    vorgegeben, genauer gesagt: es ist eine endliche Relation $\mapsto \
+    \subseteq \textbf{Exp} \times \textbf{Exp}$ vorgegeben. Das von der Relation
+    $\mapsto$ erzeugte Term-Ersetzungs-System $\rightarrow \ \subseteq
+    \textbf{Exp} \times \textbf{Exp}$ ist nun durch einen der folgenden
+    äquivalenten Ansätze definiert:
+    \begin{enumerate}
+      \item $\rightarrow$ ist das Kleinste aller Term-Ersetzungs-Systeme
+        $\Gamma$, in denen für jedes $i$ die Reduktion $l_i \Gamma r_i$ gilt.
+
+      \item $\rightarrow$ ist der Durchschnitt aller Term-Ersetzungs-Systeme
+        $\Gamma$, in denen für jedes $i$ die Reduktion $l_i \Gamma r_i$ gilt.
+
+      \item $v \rightarrow w$ gelte genau dann, wenn es eine Substitution
+        $\sigma$ gibt, eine Regel $l = l_i \mapsto r_i = r$ und eine Position
+        $p$ zum Term $v$, so dass gilt:
+        \begin{align*}
+          {v |}_p = \sigma(l) \qquad w = {v[\sigma(r)]}_p
+        \end{align*}
+    \end{enumerate}
+
+    Theoretische Vorgehensweise:
+    \begin{enumerate}
+      \item Suche einen Teilterm ${v |}_p$ des Ausgangsterms $v$. Auf diesen
+        Teilterm soll die Regel $l \mapsto r$ angewendet werden.
+
+      \item Unifiziere die linke Seite $l$ der Regel durch die Substitution
+        $\sigma$ mit dem Teilterm ${v |}_p$ des Ausgangsterms $\sigma(l) = {v
+        |}_p$.
+
+      \item Wende die Regeln an durch Auswertung der Substitution $\sigma$ auf
+        die Regel $l \mapsto r$. Es ergibt sich die Reduktion ${v |}_p =
+        \sigma(l) \rightarrow \sigma(r)$.
+
+      \item Bette die Anwendung ein in den ursprünglichen Kontext. Wende dafür
+        den Kontext ${v[]}_p$ oberhalb des Teilterms ${v |}_p$ auf beiden Seiten
+        an. Es ergibt sich ${v[\sigma(l)]}_p \rightarrow {v[\sigma(r)]}_p$.
+    \end{enumerate}
 
   \item Terminations-Lemma: für ein terminierendes Term-Ersetzungs-System
     $\rightarrow \ \subseteq \textbf{Exp} \times \textbf{Exp}$ gilt:
@@ -605,7 +666,40 @@
         u$, dann gilt $\textbf{Var}(t) \supseteq \textbf{Var}(u)$.
     \end{enumerate}
 
-  \item Kritisches Paar: \dots
+  \item Kritisches Paar: ein kritisches Paar zu zwei Regeln $l \mapsto r$ und $s
+    \mapsto t$ ist ein Paar von Termen, das auf die folgende Weise erhalten
+    werden kann:
+    \begin{enumerate}
+      \item Trennung der Variablen: forme die Regeln so zu neuen Regeln um, dass
+        die Variablenmengen der Regeln disjunkt sind. Das gelingt immer, da
+        Regeln unter Substitution abgeschlossen sind.
+
+      \item Nicht-variabler Teilterm: suche einen beliebigen (echten oder
+        unechten) Teilterm ${s|}_p$ der linken Seite der einen Regel $s$, der
+        aber keine Variable ist.
+
+      \item Unifikation: bestimme den allgemeinsten Unifikator dieses Teilterms
+        ${s|}_p$ und der linken Seite $l$ der anderen Regel. Dieser ist also
+        eine Substitution $\sigma$ mit $\sigma(l) = \sigma({s|}_p)$.
+
+      \item Regelanwendung: nun sind beide Regeln auf den Term $\sigma(s)$
+        anwendbar und können unterschiedliche Ergebnisse liefern. Konkret:
+        \begin{enumerate}
+          \item Die Regel $s \mapsto t$ ist auf den Term $\sigma(s)$ direkt
+            anwendbar. Sie macht daraus den Term $\sigma(t)$.
+
+          \item Die Regel $l \mapsto r$ ist auf den entsprechenden Teilterm
+            $\sigma({s|}_p)$ anwendbar, da dieser wegen $\sigma(l) =
+            \sigma({s|}_p)$ mit dem Muster der Regel unifiziert werden kann. Die
+            Regel macht aus dem Teilterm selber $\sigma(r)$. Der äußere Kontext
+            $\sigma({s[\cdot]}_p)$ darf darauf angewendet werden und ergibt
+            $(\sigma(s)){[\sigma(r)]}_p$.
+        \end{enumerate}
+    \end{enumerate}
+
+    Das Paar $(\sigma(t), (\sigma(s)){[\sigma(r)]}_p$, das man auf diese Art und
+    Weise aus den Regeln $l \mapsto r$ und $s \mapsto t$ erhält, heißt ein
+    kritisches Paar dieser beiden Regeln.
 
   \item Critical Pair Lemma (\textsc{Huet}): Ein von einer Menge von Regeln
     erzeugtes Term-Ersetzungs-System ist lokal konfluent genau dann, wenn jedes
