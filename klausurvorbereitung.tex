@@ -125,6 +125,7 @@
 
 \newcommand{\COLOR}{\textsf{COLOR}}
 \newcommand{\COLORDrei}{\textsf{COLOR-3}}
+\newcommand{\SAT}{\textsf{SAT}}
 \newcommand{\DreiSAT}{\textsf{3SAT}}
 \newcommand{\bin}{\text{bin}}
 \newcommand{\TSP}{\textsf{TSP}}
@@ -1377,6 +1378,81 @@ Der irreflexive Kern ist
   \item normalisierend
   \item konvergent (weil es konfluent und terminierend ist)
 \end{itemize}
+
+\section{Beispielklausuren}
+\label{sec:beispielklausuren}
+
+\subsection{Klausur vom WS1617}
+\label{sub:klausur_vom_ws1617}
+
+\subsubsection{Komplexität und formale Sprachen}
+\label{ssub:komplexitaet_und_formale_Sprachen}
+
+\begin{enumerate}
+  \item Warum werden die Probleme aus $P$ als die „effizient lösbaren“ Probleme
+    angesehen?
+
+  \item Was ist eine formale Sprache?
+
+  \item Was ist eine kontextfreie Sprache? Was ist eine kontextfreie Grammatik?
+
+  \item Zeigen Sie, dass die Sprache über dem Alphabet $\{a, b\}$, dessen Wörter
+    immer eine durch $2$ teilbare Anzahl von $a$s oder $b$s enthalten, eine
+    reguläre Sprache ist.
+
+  \item Zeigen Sie mit Hilfe des Pumping-Lemmas, dass die Sprache über dem
+    Alphabet $\{a, b\}$, dessen Wörter immer gleich viele $a$s und $b$s
+    enthalten, nicht regulär ist.
+
+  \item Zeigen Sie durch Polynomialreduktion, dass \COLOR{} NP-vollständig ist.
+    Reduzieren Sie es auf das Erfüllbarkeitsproblem der Aussagenlogik (\SAT).
+\end{enumerate}
+
+\subsubsection{Semantik}
+\label{ssub:Semantik}
+
+\begin{enumerate}
+  \item Entwickeln Sie eine Grammatik und eine Semantik zu einer einfachen
+    Sprache. Diese Sprache soll Konstanten, Variablen, Addition von
+    arithmetischen Ausdrücken, Wertzuweisung und additive Wertzuweisung
+    einerseits in der Form \texttt{x += 4} und andererseits auch als
+    arithmetischen Ausdruck der Form \texttt{x += (y += 4)} enthalten. Im
+    letzten Fall soll der aktualisierte Wert der Variablen nach der
+    Wertzuweisung „zurückgegeben“ (also so interpretiert) werden.
+
+  \item Rekursive Definition: eine Definition \texttt{(DEF)} für eine (partielle
+    oder totale) Funktion $f$ der natürlichen Zahlen $\N_0$ einschließlich der
+    Null sei gegeben durch:
+    \begin{align*}
+      f(x) := \begin{cases}
+        x,       & \text{falls } x \mod 3 = 0\\
+        f(x-1),  & \text{falls } x \mod 3 = 1\\
+        f(f(x)), & \text{falls } x \mod 3 = 2
+      \end{cases}
+    \end{align*}
+    Dabei ist $x \mod 3$ der Rest, der sich bei Division von $x$ durch $3$
+    ergibt.
+
+    \begin{enumerate}
+      \item Ist diese Definition eine korrekte Definition der Funktion $f$ oder
+        besteht ein Problem? Wenn ein Problem besteht, erklären Sie kurz, woran
+        Sie dieses erkennen und welche Auswirkungen es hat.
+
+      \item Interpretieren Sie nun \texttt{(DEF)} als eine Bedingung an eine
+        Funktion $f$. Geben Sie eine totale Funktion $f_1$ und eine (echt)
+        partielle Funktion $f_2$ an, welche die Bedingung \texttt{(DEF)}
+        erfüllen.
+
+      \item Geben Sie jene (totale oder partielle) Funktion $f_r$ an, die man
+        erhält, wenn man \texttt{(DEF)} als eine rekursive Definition nach
+        Fixpunkt-Semantik interpretiert. Erklären Sie zusätzlich kurz, wie Sie
+        diese Funktion bestimmt haben.
+    \end{enumerate}
+
+  \item Entwickeln Sie in der Sprache der Guarded Commands von \textsc{Dijkstra}
+    ein Programm, das die Fakultät $n! = 1 \cdot 2 \cdot \ldots \cdot n$ einer
+    natürlichen Zahl $n$ berechnet.
+\end{enumerate}
 
 \begin{thebibliography}{9}
 
